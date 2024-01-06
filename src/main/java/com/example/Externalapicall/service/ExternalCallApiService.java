@@ -41,12 +41,21 @@ public class ExternalCallApiService {
 //        return response;
 //    }
 
-    public <T> T getData(String url, HttpMethod httpMethod, T request, Class<T> responseType ) {
+    public <U,T> T doRest(String url, HttpMethod httpMethod, U request, Class<T> responseType ) {
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        HttpEntity<T> entity = new HttpEntity<>(request,headers);
+        HttpEntity<Object> entity = new HttpEntity<>(request,headers);
         ResponseEntity<T> responseREST = restTemplate.exchange(url, httpMethod, entity, responseType);
         return responseREST.getBody();
     }
+
+//    public Object getData(String url, HttpMethod httpMethod, Object request , Class<?> responseType){
+//        RestTemplate restTemplate = new RestTemplate();
+//        HttpHeaders headers = new HttpHeaders();
+//        headers.setContentType(MediaType.APPLICATION_JSON);
+//        HttpEntity<Object> entity = new HttpEntity<>(request,headers);
+//        ResponseEntity<?> responseRest = restTemplate.exchange(url,httpMethod,entity,responseType);
+//        return responseRest.getBody();
+//    }
 }
